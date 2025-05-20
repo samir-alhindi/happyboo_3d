@@ -1,4 +1,4 @@
 #About:
-## Funny game.
+##Funny game.
 ###yeah.
 game.

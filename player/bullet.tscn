@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://davj7wccmaldp"]
+
+[ext_resource type="Script" uid="uid://jy2pbpen8rcc" path="res://player/bullet.gd" id="1_boyjm"]
+[ext_resource type="PackedScene" uid="uid://byxxh0gw3osmo" path="res://assets/player/projectile/projectile_model.glb" id="1_j40gx"]
+[ext_resource type="Material" uid="uid://ctnipgxo3l72h" path="res://assets/mob/smoke_puff/material/outer_smoke.tres" id="2_boyjm"]
+
+[node name="Bullet" type="Area3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+script = ExtResource("1_boyjm")
+
+[node name="projectile_model" parent="." instance=ExtResource("1_j40gx")]
+transform = Transform3D(-4.37047e-08, -7.62869e-10, 1, -0.0174524, 0.999848, 0, -0.999848, -0.0174524, -4.37114e-08, 0, 0, 0)
+
+[node name="Projectile" parent="projectile_model" index="0"]
+surface_material_override/0 = ExtResource("2_boyjm")
+
+[editable path="projectile_model"]

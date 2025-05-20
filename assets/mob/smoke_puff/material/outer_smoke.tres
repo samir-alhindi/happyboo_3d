@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ctnipgxo3l72h"]
+
+[ext_resource type="Shader" uid="uid://b4wc5wsyakc0a" path="res://assets/player/projectile/projectile.gdshader" id="1_5hhwt"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_5hhwt")
+shader_parameter/tail_color = Color(0.895303, 0.733772, 3.85046e-07, 1)
+shader_parameter/head_color = Color(0.694256, 0.264709, 0, 1)

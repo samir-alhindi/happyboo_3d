@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs3v7ya0h3qml"]
+
+[ext_resource type="PackedScene" uid="uid://cxq2t0itutopv" path="res://assets/mob/bat/bat_model.glb" id="1_nwj43"]
+
+[sub_resource type="GDScript" id="GDScript_nwj43"]
+script/source = "extends RigidBody3D
+
+@onready var skin: Node3D = $bat_model
+
+var speed: float
+var player: Player
+
+func _ready() -> void:
+	player = get_tree().get_first_node_in_group(\"player\")
+	speed = randf_range(1.0, 2.0)
+
+func _physics_process(delta: float) -> void:
+	var direction: Vector3 = global_position.direction_to(player.global_position)
+	direction.y = 0
+	linear_velocity = direction * speed
+	skin.rotation.y = Vector3.FORWARD.signed_angle_to(direction, Vector3.UP) + PI
+"
+
+[node name="Bat" type="RigidBody3D"]
+script = SubResource("GDScript_nwj43")
+
+[node name="bat_model" parent="." instance=ExtResource("1_nwj43")]
+
+[node name="Skeleton3D" parent="bat_model/Armature" index="0"]
+bones/0/position = Vector3(0, -0.0074, 0)
+bones/1/rotation = Quaternion(-0.0286549, 0.188485, -0.686718, 0.701478)
+bones/2/rotation = Quaternion(-0.0560154, -0.016041, 0.274838, 0.959723)
+bones/3/rotation = Quaternion(0.0412136, 0.059985, 0.264753, 0.961566)
+bones/4/rotation = Quaternion(-0.0286549, -0.188485, 0.686718, 0.701478)
+bones/5/rotation = Quaternion(-0.0560154, 0.016041, -0.274838, 0.959723)
+bones/6/rotation = Quaternion(0.0412136, -0.059985, -0.264753, 0.961566)
+bones/7/position = Vector3(0.130992, -0.227392, -0.0878515)
+bones/7/rotation = Quaternion(0.261968, 0.0834551, 0.265751, 0.924004)
+bones/8/rotation = Quaternion(3.84334e-08, 0.690882, 0.722967, 1.64515e-08)
+bones/10/position = Vector3(-0.130992, -0.227392, -0.0878515)
+bones/10/rotation = Quaternion(0.261968, -0.0834551, -0.265751, 0.924004)
+bones/11/rotation = Quaternion(2.54238e-08, 0.690882, 0.722967, 3.63776e-08)
+
+[node name="AnimationPlayer" parent="bat_model" index="1"]
+autoplay = "Idle"
+
+[editable path="bat_model"]
