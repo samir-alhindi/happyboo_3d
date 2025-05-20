@@ -16,8 +16,8 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		rotate_y(event.screen_relative.x * mouse_sensitivity * -1)
-		camera_3d.rotate_x(event.screen_relative.y * mouse_sensitivity * -1)
-		camera_3d.rotation_degrees.x = clampf(camera_3d.rotation_degrees.x, -80, 80)
+		var angle: float = clampf(event.screen_relative.y * mouse_sensitivity * -1, -80, 80)
+		camera_3d.rotate_x(angle)
 	
 	if event.is_action_pressed("ui_cancel"):
 		match Input.mouse_mode:

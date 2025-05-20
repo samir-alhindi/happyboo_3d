@@ -18,11 +18,11 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.516267, 0)
 
 [node name="gun_model" parent="Camera3D" instance=ExtResource("2_rkbax")]
-transform = Transform3D(-0.23874, 0.0105302, -0.0734333, -0.00525445, 0.244447, 0.0521362, 0.0739982, 0.0513313, -0.233215, 0.499372, -0.275468, -0.50951)
+transform = Transform3D(-0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, -0.25, 0, -0.322451, -0.930264)
 
 [node name="ShootingPoint" type="Marker3D" parent="Camera3D"]
 unique_name_in_owner = true
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0.468257, -0.239896, -0.629799)
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, -1)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 8

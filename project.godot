@@ -25,6 +25,7 @@ window/stretch/mode="viewport"
 [global_group]
 
 player="The player"
+bullet="player bullets"
 
 [input]
 
