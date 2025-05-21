@@ -40,7 +40,7 @@ material = SubResource("StandardMaterial3D_joe7c")
 
 [node name="SpawnPoint" type="Marker3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11689, -11.0472)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -11.047)
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 unique_name_in_owner = true

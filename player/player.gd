@@ -11,20 +11,21 @@ class_name Player extends CharacterBody3D
 @export var mouse_sensitivity: float = 0.005
 
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		rotate_y(event.screen_relative.x * mouse_sensitivity * -1)
-		var angle: float = clampf(event.screen_relative.y * mouse_sensitivity * -1, -80, 80)
+		rotate_y(event.relative.x * mouse_sensitivity * -1)
+		var angle: float = event.screen_relative.y * mouse_sensitivity * -1
 		camera_3d.rotate_x(angle)
+		camera_3d.rotation_degrees.x = clampf(camera_3d.rotation_degrees.x, -80, 80)
 	
 	if event.is_action_pressed("ui_cancel"):
 		match Input.mouse_mode:
-			Input.MOUSE_MODE_HIDDEN:
+			Input.MOUSE_MODE_CAPTURED:
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			Input.MOUSE_MODE_VISIBLE:
-				Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta: float) -> void:
 	

@@ -1,38 +1,8 @@
 [gd_scene load_steps=13 format=4 uid="uid://cs3v7ya0h3qml"]
 
+[ext_resource type="Script" uid="uid://dp71u36tvmuyp" path="res://enemies/bat/bat.gd" id="1_kjrhy"]
 [ext_resource type="PackedScene" uid="uid://b8p6ody5vp2ft" path="res://enemies/bat/bat_model.tscn" id="1_nwj43"]
 [ext_resource type="Texture2D" uid="uid://dt3qn3ewlahjb" path="res://assets/mob/bat/bat_model_bat_palette.png" id="2_ffxfj"]
-
-[sub_resource type="GDScript" id="GDScript_nwj43"]
-script/source = "extends RigidBody3D
-
-@onready var skin: Node3D = $bat_model
-@onready var animation_tree: AnimationTree = %AnimationTree
-
-var speed: float
-var player: Player
-var health: int
-
-func _ready() -> void:
-	player = get_tree().get_first_node_in_group(\"player\")
-	speed = randf_range(1.0, 2.0)
-	health = randi() % 100 + 50
-
-func _physics_process(_delta: float) -> void:
-	var direction: Vector3 = global_position.direction_to(player.global_position)
-	direction.y = 0
-	linear_velocity = direction * speed
-	skin.rotation.y = Vector3.FORWARD.signed_angle_to(direction, Vector3.UP) + PI
-
-
-func _on_hurt_box_area_entered(area: Area3D) -> void:
-	if area.is_in_group(\"bullet\"):
-		area.queue_free()
-		health -= 25
-		animation_tree.set(\"parameters/HurtOneShot/request\", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
-		if health <= 0:
-			queue_free()
-"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7a8iq"]
 resource_name = "bat_mat"
@@ -41,6 +11,7 @@ albedo_texture = ExtResource("2_ffxfj")
 roughness = 0.427273
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ffxfj"]
+resource_local_to_scene = true
 resource_name = "bat_model_bat_mesh"
 _surfaces = [{
 "aabb": AABB(-0.753491, -0.270335, -0.223961, 1.50698, 0.708211, 0.472386),
@@ -115,7 +86,6 @@ animation = &"Idle"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ffxfj"]
 resource_local_to_scene = true
-graph_offset = Vector2(-703.361, 13.9133)
 nodes/HurtOneShot/node = SubResource("AnimationNodeOneShot_nwj43")
 nodes/HurtOneShot/position = Vector2(-220, 240)
 nodes/hurt/node = SubResource("AnimationNodeAnimation_ffxfj")
@@ -132,20 +102,25 @@ radius = 0.239666
 
 [node name="Bat" type="RigidBody3D"]
 gravity_scale = 0.0
-script = SubResource("GDScript_nwj43")
+lock_rotation = true
+script = ExtResource("1_kjrhy")
 
 [node name="bat_model" parent="." instance=ExtResource("1_nwj43")]
 
 [node name="Skeleton3D" parent="bat_model/Armature" index="0"]
-bones/0/position = Vector3(0, -0.0145181, 0)
-bones/1/rotation = Quaternion(0.0680966, 0.0920172, -0.613378, 0.781449)
-bones/2/rotation = Quaternion(-0.107365, -0.0387082, 0.337448, 0.9344)
-bones/3/rotation = Quaternion(-0.195379, -0.00190132, 0.247754, 0.948916)
-bones/4/rotation = Quaternion(0.0680966, -0.0920172, 0.613378, 0.781449)
-bones/5/rotation = Quaternion(-0.107365, 0.0387082, -0.337448, 0.9344)
-bones/6/rotation = Quaternion(-0.195379, 0.00190132, -0.247754, 0.948916)
-bones/8/rotation = Quaternion(2.90415e-08, 0.543232, 0.839583, 2.0551e-08)
-bones/11/rotation = Quaternion(2.51178e-08, 0.543232, 0.839583, 4.34915e-08)
+bones/0/position = Vector3(0, 0.0236, 0)
+bones/1/rotation = Quaternion(0.168899, 0.00473197, -0.64686, 0.743655)
+bones/2/rotation = Quaternion(0.173384, 0.0742503, 0.386359, 0.902857)
+bones/3/rotation = Quaternion(0.152187, 0.110015, 0.358021, 0.914635)
+bones/4/rotation = Quaternion(0.168899, -0.00473197, 0.64686, 0.743655)
+bones/5/rotation = Quaternion(0.173384, -0.0742503, -0.386359, 0.902857)
+bones/6/rotation = Quaternion(0.152187, -0.110015, -0.358021, 0.914635)
+bones/7/position = Vector3(0.130992, -0.227392, -0.0878515)
+bones/7/rotation = Quaternion(0.261968, 0.0834552, 0.265751, 0.924005)
+bones/8/rotation = Quaternion(3.71316e-08, 0.665378, 0.746506, 2.22924e-08)
+bones/10/position = Vector3(-0.130992, -0.227392, -0.0878515)
+bones/10/rotation = Quaternion(0.261968, -0.0834552, -0.265751, 0.924005)
+bones/11/rotation = Quaternion(2.24959e-08, 0.665379, 0.746506, 4.24742e-08)
 
 [node name="bat" parent="bat_model/Armature/Skeleton3D" index="0"]
 mesh = SubResource("ArrayMesh_ffxfj")
