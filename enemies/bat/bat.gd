@@ -25,8 +25,10 @@ func _on_hurt_box_area_entered(area: Area3D) -> void:
 		area.queue_free()
 		health -= 25
 		animation_tree.set("parameters/HurtOneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		%HurtSound.play()
 		if health <= 0:
 			Global.mob_killed.emit()
+			%DeadSound.play()
 			set_physics_process(false)
 			gravity_scale = 1.0
 			var dir_away_from_player: Vector3 = - (global_position.direction_to(player.global_position))
@@ -35,4 +37,5 @@ func _on_hurt_box_area_entered(area: Area3D) -> void:
 			lock_rotation = false
 			
 			await get_tree().create_timer(5.0).timeout
+			Global.spawn_smoke.emit(self.global_position)
 			queue_free()

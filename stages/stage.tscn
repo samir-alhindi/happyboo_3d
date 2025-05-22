@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpf63nnr7shby"]
+[gd_scene load_steps=9 format=3 uid="uid://cpf63nnr7shby"]
 
 [ext_resource type="Texture2D" uid="uid://bjltv6twxvk1x" path="res://assets/level/checkboard.png" id="1_fa2lt"]
+[ext_resource type="Script" uid="uid://0erpix6fg0x0" path="res://stages/stage.gd" id="1_qghdb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fa2lt"]
 sky_top_color = Color(0.552978, 0.104887, 1, 1)
@@ -30,7 +31,11 @@ albedo_texture = ExtResource("1_fa2lt")
 uv1_triplanar = true
 uv1_triplanar_sharpness = 4.0
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_oiaqk"]
+size = Vector3(85.8493, 0.001, 81.5651)
+
 [node name="Stage" type="Node"]
+script = ExtResource("1_qghdb")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 16.5696, 0)
@@ -86,3 +91,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.2931, -0.069129, -9.43749)
 use_collision = true
 size = Vector3(1.3957, 0.885895, 8.14098)
 material = SubResource("StandardMaterial3D_oiaqk")
+
+[node name="KillPlane" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KillPlane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9182, -5.30772, -9.3088)
+shape = SubResource("BoxShape3D_oiaqk")
+debug_color = Color(0, 0.540565, 0.956646, 0.42)
+
+[node name="SpawnPoint" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.151433, -0.000224656, -0.988467, 0.00148353, 0.999999, 5.26444e-11, 0.988466, -0.00146642, 0.151433, -19.3378, 1, -6.73008)
+
+[connection signal="body_entered" from="KillPlane" to="." method="_on_kill_plane_body_entered"]

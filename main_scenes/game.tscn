@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cktpqy3tkxfh4"]
+[gd_scene load_steps=6 format=3 uid="uid://cktpqy3tkxfh4"]
 
 [ext_resource type="PackedScene" uid="uid://b3p2kmacprfp1" path="res://player/player.tscn" id="1_wwb56"]
 [ext_resource type="PackedScene" uid="uid://cpf63nnr7shby" path="res://stages/stage.tscn" id="2_ofkbr"]
 [ext_resource type="PackedScene" uid="uid://dj18ypmcye02r" path="res://spawner/spawner.tscn" id="4_w44n0"]
+[ext_resource type="AudioStream" uid="uid://qpwgg0x25lrl" path="res://assets/player/gun_shoot.wav" id="5_8vhnl"]
 [ext_resource type="PackedScene" uid="uid://cs3v7ya0h3qml" path="res://enemies/bat/bat.tscn" id="5_is35i"]
 
 [node name="Game" type="Node"]
@@ -12,25 +13,29 @@
 [node name="Player" parent="." instance=ExtResource("1_wwb56")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.4333, 1, -6.66131)
 
-[node name="Enemies" type="Node3D" parent="."]
-
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 3.0
 autostart = true
 
+[node name="Enemies" type="Node3D" parent="."]
+
 [node name="Spawners" type="Node" parent="."]
 
 [node name="Spawner" parent="Spawners" instance=ExtResource("4_w44n0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.60655, 2.96537, 4.172)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.60655, 4.58019, 4.172)
 object_scene = ExtResource("5_is35i")
 
 [node name="Spawner2" parent="Spawners" instance=ExtResource("4_w44n0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.60655, 2.96537, -24.6408)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.60655, 4.58019, -24.6408)
 object_scene = ExtResource("5_is35i")
 
 [node name="Spawner3" parent="Spawners" instance=ExtResource("4_w44n0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.4836, 2.96537, -10.4004)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.4836, 4.58019, -10.4004)
 object_scene = ExtResource("5_is35i")
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_8vhnl")
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

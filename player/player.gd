@@ -47,6 +47,8 @@ func _physics_process(delta: float) -> void:
 		var bullet: Area3D = BULLET.instantiate()
 		bullets.add_child(bullet)
 		bullet.global_transform = shooting_point.global_transform
+		%ShootSound.play()
+		%AnimationPlayer.play("shoot")
 	
 	
 	var input_dir: Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")

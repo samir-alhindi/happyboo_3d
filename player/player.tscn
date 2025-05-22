@@ -1,10 +1,47 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3p2kmacprfp1"]
+[gd_scene load_steps=8 format=3 uid="uid://b3p2kmacprfp1"]
 
 [ext_resource type="Script" uid="uid://bdwht55kn0oku" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="PackedScene" uid="uid://bwpj71srgi5cc" path="res://assets/player/simple_gun/gun_model.glb" id="2_rkbax"]
 [ext_resource type="Texture2D" uid="uid://5xngbji2r1k1" path="res://assets/player/reticle.png" id="3_g1dw6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kqu6x"]
+
+[sub_resource type="Animation" id="Animation_g1dw6"]
+resource_name = "shoot"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/gun_model:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -3.14159, 0), Vector3(-0.467155, -3.14159, -7.6161e-08), Vector3(0, -3.14159, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_yw30f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/gun_model:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -3.14159, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qjkh3"]
+_data = {
+&"RESET": SubResource("Animation_yw30f"),
+&"shoot": SubResource("Animation_g1dw6")
+}
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -18,7 +55,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.516267, 0)
 
 [node name="gun_model" parent="Camera3D" instance=ExtResource("2_rkbax")]
-transform = Transform3D(-0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, -0.25, 0, -0.322451, -0.930264)
+transform = Transform3D(-0.25, 0, -3.7749e-08, 0, 0.25, 0, 3.7749e-08, 0, -0.25, 0, -0.322451, -0.930264)
 
 [node name="ShootingPoint" type="Marker3D" parent="Camera3D"]
 unique_name_in_owner = true
@@ -56,5 +93,11 @@ one_shot = true
 
 [node name="Bullets" type="Node" parent="."]
 unique_name_in_owner = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_qjkh3")
+}
 
 [editable path="Camera3D/gun_model"]

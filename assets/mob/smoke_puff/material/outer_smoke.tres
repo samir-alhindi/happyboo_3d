@@ -1,10 +1,17 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ctnipgxo3l72h"]
 
-[ext_resource type="Shader" uid="uid://b4wc5wsyakc0a" path="res://assets/player/projectile/projectile.gdshader" id="1_5hhwt"]
+[ext_resource type="Shader" uid="uid://0h8qjtcpk0mk" path="res://assets/mob/smoke_puff/material/inner_smoke.gdshader" id="1_5hhwt"]
 
 [resource]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_5hhwt")
-shader_parameter/tail_color = Color(0.895303, 0.733772, 3.85046e-07, 1)
-shader_parameter/head_color = Color(0.694256, 0.264709, 0, 1)
+shader_parameter/albedo = Color(0.999972, 0.727787, 0.683738, 1)
+shader_parameter/progress = 0.0
+shader_parameter/smoothness = 0.2
+shader_parameter/ease = 1.0
+shader_parameter/base_scale = 0.0
+shader_parameter/deformation_scale = 0.0
+shader_parameter/texture_offset = 0.0
+shader_parameter/fresnel_offset = 1.0
+shader_parameter/global_alpha = 1.0
