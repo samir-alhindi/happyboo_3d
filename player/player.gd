@@ -4,14 +4,21 @@ class_name Player extends CharacterBody3D
 @onready var cooldown_timer: Timer = %CooldownTimer
 @onready var shooting_point: Marker3D = %ShootingPoint
 @onready var bullets: Node = %Bullets
+@onready var score_label: Label = %ScoreLabel
 
 @export var speed: int = 5
 @export var jump_velocity: int = 5
-
 @export var mouse_sensitivity: float = 0.005
+
+var score: int = 0
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Global.mob_killed.connect(
+		func():
+			score += 250
+			score_label.text = str(score)
+	)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:

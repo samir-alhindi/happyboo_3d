@@ -1,0 +1,87 @@
+[gd_scene load_steps=9 format=3 uid="uid://dj18ypmcye02r"]
+
+[ext_resource type="Script" uid="uid://cwky7ydrxlyiw" path="res://spawner/spawner.gd" id="1_0dhu7"]
+[ext_resource type="PackedScene" uid="uid://3l7yrhpt3xk2" path="res://assets/mob/spawner/spawner_model.glb" id="1_nhote"]
+[ext_resource type="Shader" uid="uid://cfnwyva3u4qeb" path="res://assets/mob/spawner/spawner_halo.gdshader" id="2_0dhu7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ymvw8"]
+render_priority = 0
+shader = ExtResource("2_0dhu7")
+shader_parameter/color = Color(4.62055e-06, 0.943257, 0.945709, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nhote"]
+albedo_color = Color(0.289906, 0.650963, 1, 1)
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.21
+rim_enabled = true
+
+[sub_resource type="Animation" id="Animation_nhote"]
+resource_name = "rotate"
+length = 2.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spawner_model/Top:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0dhu7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spawner_model/Top:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ymvw8"]
+_data = {
+&"RESET": SubResource("Animation_0dhu7"),
+&"rotate": SubResource("Animation_nhote")
+}
+
+[node name="Spawner" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48596, 0)
+script = ExtResource("1_0dhu7")
+
+[node name="spawner_model" parent="." instance=ExtResource("1_nhote")]
+
+[node name="halo" parent="spawner_model" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_ymvw8")
+
+[node name="Body" parent="spawner_model" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_nhote")
+
+[node name="Top" parent="spawner_model" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.783957, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ymvw8")
+}
+autoplay = "rotate"
+
+[node name="SpawnTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+autostart = true
+
+[node name="Instances" type="Node" parent="."]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+
+[editable path="spawner_model"]

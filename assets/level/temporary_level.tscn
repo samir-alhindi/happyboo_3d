@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dp7sxe5xl5shk"]
 
-[ext_resource type="Texture2D" uid="uid://bos7rridjkps1" path="res://level/checkboard.png" id="1_cig4d"]
+[ext_resource type="Texture2D" uid="uid://bjltv6twxvk1x" path="res://assets/level/checkboard.png" id="1_cig4d"]
 
 [sub_resource type="Environment" id="Environment_pev5d"]
 background_mode = 1

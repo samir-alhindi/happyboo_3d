@@ -1,50 +1,36 @@
-[gd_scene load_steps=7 format=3 uid="uid://cktpqy3tkxfh4"]
+[gd_scene load_steps=5 format=3 uid="uid://cktpqy3tkxfh4"]
 
-[ext_resource type="Script" uid="uid://bag3jux3ymyxd" path="res://main_scenes/game.gd" id="1_joe7c"]
 [ext_resource type="PackedScene" uid="uid://b3p2kmacprfp1" path="res://player/player.tscn" id="1_wwb56"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iybmq"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-
-[sub_resource type="Sky" id="Sky_wwb56"]
-sky_material = SubResource("ProceduralSkyMaterial_iybmq")
-
-[sub_resource type="Environment" id="Environment_joe7c"]
-background_mode = 2
-sky = SubResource("Sky_wwb56")
-tonemap_mode = 2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_joe7c"]
-albedo_color = Color(0.286885, 0.293037, 1.44392e-07, 1)
+[ext_resource type="PackedScene" uid="uid://cpf63nnr7shby" path="res://stages/stage.tscn" id="2_ofkbr"]
+[ext_resource type="PackedScene" uid="uid://dj18ypmcye02r" path="res://spawner/spawner.tscn" id="4_w44n0"]
+[ext_resource type="PackedScene" uid="uid://cs3v7ya0h3qml" path="res://enemies/bat/bat.tscn" id="5_is35i"]
 
 [node name="Game" type="Node"]
-script = ExtResource("1_joe7c")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 13.2211, -15.4899)
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_joe7c")
-
-[node name="Ground" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.87143)
-use_collision = true
-size = Vector3(25, 1, 25)
-material = SubResource("StandardMaterial3D_joe7c")
+[node name="Stage" parent="." instance=ExtResource("2_ofkbr")]
 
 [node name="Player" parent="." instance=ExtResource("1_wwb56")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.4333, 1, -6.66131)
 
 [node name="Enemies" type="Node3D" parent="."]
-
-[node name="SpawnPoint" type="Marker3D" parent="."]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -11.047)
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 3.0
 autostart = true
+
+[node name="Spawners" type="Node" parent="."]
+
+[node name="Spawner" parent="Spawners" instance=ExtResource("4_w44n0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.60655, 2.96537, 4.172)
+object_scene = ExtResource("5_is35i")
+
+[node name="Spawner2" parent="Spawners" instance=ExtResource("4_w44n0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.60655, 2.96537, -24.6408)
+object_scene = ExtResource("5_is35i")
+
+[node name="Spawner3" parent="Spawners" instance=ExtResource("4_w44n0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.4836, 2.96537, -10.4004)
+object_scene = ExtResource("5_is35i")
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

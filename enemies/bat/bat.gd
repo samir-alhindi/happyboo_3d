@@ -26,6 +26,7 @@ func _on_hurt_box_area_entered(area: Area3D) -> void:
 		health -= 25
 		animation_tree.set("parameters/HurtOneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		if health <= 0:
+			Global.mob_killed.emit()
 			set_physics_process(false)
 			gravity_scale = 1.0
 			var dir_away_from_player: Vector3 = - (global_position.direction_to(player.global_position))
