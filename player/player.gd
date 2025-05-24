@@ -5,14 +5,30 @@ class_name Player extends CharacterBody3D
 @onready var shooting_point: Marker3D = %ShootingPoint
 @onready var bullets: Node = %Bullets
 @onready var score_label: Label = %ScoreLabel
+@onready var hurtbox: Area3D = %Hurtbox
+@onready var health_bar: ProgressBar = %HealthBar
+@onready var powerup_sound: AudioStreamPlayer = %PowerupSound
 
 @export var speed: int = 5
 @export var jump_velocity: int = 5
 @export var mouse_sensitivity: float = 0.005
 
+var dead: bool = false
 var score: int = 0
+var ammo: int = 25:
+	set(new_val):
+		ammo = new_val
+		%AmmoLabel.text = "Ammo: " + str(new_val)
+var health: float = 100:
+	set(new_val):
+		health = new_val
+		health_bar.value = new_val
+		if new_val <= 0 and not dead:
+			dead = true
+			Global.game_over.emit(score)
 
 func _ready() -> void:
+	%GameOver.hide()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	Global.mob_killed.connect(
 		func():
@@ -41,7 +57,7 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = jump_velocity
-	if Input.is_action_pressed("shoot") and cooldown_timer.is_stopped():
+	if Input.is_action_pressed("shoot") and cooldown_timer.is_stopped() and ammo > 0:
 		const BULLET: PackedScene = preload("res://player/bullet.tscn")
 		cooldown_timer.start()
 		var bullet: Area3D = BULLET.instantiate()
@@ -49,6 +65,7 @@ func _physics_process(delta: float) -> void:
 		bullet.global_transform = shooting_point.global_transform
 		%ShootSound.play()
 		%AnimationPlayer.play("shoot")
+		ammo -= 1
 	
 	
 	var input_dir: Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -59,5 +76,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
-
+	
+	# Check for damage:
+	var bodies: Array[Node3D] = hurtbox.get_overlapping_bodies()
+	for body: Node3D in bodies:
+		if body is Bat:
+			health -= 10 * delta
+	
 	move_and_slide()

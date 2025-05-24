@@ -110,19 +110,19 @@ script = ExtResource("1_kjrhy")
 [node name="bat_model" parent="." instance=ExtResource("1_nwj43")]
 
 [node name="Skeleton3D" parent="bat_model/Armature" index="0"]
-bones/0/position = Vector3(0, 0.00480674, 0)
-bones/1/rotation = Quaternion(0.178539, 0.0089343, -0.591237, 0.786437)
-bones/2/rotation = Quaternion(0.0346159, 0.0153399, 0.398579, 0.916352)
-bones/3/rotation = Quaternion(-0.0861862, 0.0214578, 0.311121, 0.946211)
-bones/4/rotation = Quaternion(0.178539, -0.0089343, 0.591237, 0.786437)
-bones/5/rotation = Quaternion(0.0346159, -0.0153399, -0.398579, 0.916352)
-bones/6/rotation = Quaternion(-0.0861862, -0.0214578, -0.311121, 0.946211)
+bones/0/position = Vector3(0, 0.0144073, 0)
+bones/1/rotation = Quaternion(0.0799132, 0.08193, -0.680332, 0.723913)
+bones/2/rotation = Quaternion(0.106423, 0.0387671, 0.339734, 0.933677)
+bones/3/rotation = Quaternion(0.162731, 0.107708, 0.325894, 0.925046)
+bones/4/rotation = Quaternion(0.0799132, -0.08193, 0.680332, 0.723913)
+bones/5/rotation = Quaternion(0.106423, -0.0387671, -0.339734, 0.933677)
+bones/6/rotation = Quaternion(0.162731, -0.107708, -0.325894, 0.925046)
 bones/7/position = Vector3(0.130992, -0.227392, -0.0878515)
 bones/7/rotation = Quaternion(0.261968, 0.0834552, 0.265751, 0.924005)
-bones/8/rotation = Quaternion(3.20807e-08, 0.551458, 0.834203, 2.06504e-08)
+bones/8/rotation = Quaternion(3.84261e-08, 0.702337, 0.711844, 2.28288e-08)
 bones/10/position = Vector3(-0.130992, -0.227392, -0.0878515)
 bones/10/rotation = Quaternion(0.261968, -0.0834552, -0.265751, 0.924005)
-bones/11/rotation = Quaternion(2.3873e-08, 0.551458, 0.834203, 3.84569e-08)
+bones/11/rotation = Quaternion(2.13217e-08, 0.702337, 0.711844, 3.50915e-08)
 
 [node name="bat" parent="bat_model/Armature/Skeleton3D" index="0"]
 mesh = SubResource("ArrayMesh_ffxfj")

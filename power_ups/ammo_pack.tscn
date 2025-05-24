@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8all53jr4lfp"]
+
+[ext_resource type="PackedScene" uid="uid://byxxh0gw3osmo" path="res://assets/player/projectile/projectile_model.glb" id="1_ehqrn"]
+[ext_resource type="Script" uid="uid://b57d7k7ek6otq" path="res://power_ups/ammo_pack.gd" id="1_o7fus"]
+[ext_resource type="Shader" uid="uid://b4wc5wsyakc0a" path="res://assets/player/projectile/projectile.gdshader" id="2_o7fus"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tmmf2"]
+render_priority = 0
+shader = ExtResource("2_o7fus")
+shader_parameter/tail_color = Color(0.706117, 0.656552, 7.70092e-07, 1)
+shader_parameter/head_color = Color(0.684418, 0.251973, 0.114459, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ehqrn"]
+radius = 0.799611
+
+[node name="AmmoPack" type="Area3D"]
+script = ExtResource("1_o7fus")
+
+[node name="projectile_model" parent="." instance=ExtResource("1_ehqrn")]
+transform = Transform3D(0.0941083, 0.995562, 0, -0.995562, 0.0941083, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Projectile" parent="projectile_model" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_tmmf2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ehqrn")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+
+[editable path="projectile_model"]
