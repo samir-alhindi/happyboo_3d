@@ -10,8 +10,8 @@ var health: int
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
-	speed = randf_range(2.0, 6.0)
-	health = randi() % 4 + 2
+	speed = randf_range(2.0, 4.0)
+	health = randi() % 3 + 1
 
 func _physics_process(_delta: float) -> void:
 	var direction: Vector3 = global_position.direction_to(player.global_position)
